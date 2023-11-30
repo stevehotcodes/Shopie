@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CartService } from '../services/cart.service';
+import { FlashmessagesService } from '../services/flashmessages.service';
 
 @Component({
   selector: 'app-cart',
@@ -9,7 +10,7 @@ import { CartService } from '../services/cart.service';
 export class CartComponent {
   cart:any[]=[]
 
-  constructor(private cartSvc:CartService){}
+  constructor(private cartSvc:CartService,private flashMsgSvc:FlashmessagesService){}
 
   ngOnInit(){
     this.getCartItem()
@@ -30,10 +31,26 @@ export class CartComponent {
     console.log("id removed",itemID)
     
     this.cartSvc.removeItem(itemID).subscribe(
+      (res:any)=>{
+        console.log(res);
+        this.flashMsgSvc.pushMessage({
+          type:'success',
+          message:res.message
+        }
+          
+        )
+        
+      }
+    )
+  }
+
+  makeItemAnOrder(){
+    this.cartSvc.createANewOrder().subscribe(
       res=>{
         console.log(res);
         
-      }
+      },
+      
     )
   }
 

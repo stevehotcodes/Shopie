@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IorderDetailsWithUserInfo, OrdersService } from '../services/orders.service';
 import { ProductsService } from '../services/products.service';
 import { CartService } from '../services/cart.service';
+import { FlashmessagesService } from '../services/flashmessages.service';
 
 @Component({
   selector: 'app-userdashboard',
@@ -13,7 +14,7 @@ export class UserdashboardComponent {
 
   orders:IorderDetailsWithUserInfo[]=[]
   products:any[]=[]
-  constructor(private orderSvc:OrdersService, private productSvc:ProductsService,private cartSvc:CartService){}
+  constructor(private orderSvc:OrdersService, private productSvc:ProductsService,private cartSvc:CartService,private flashMsgSvc:FlashmessagesService){}
 
   ngOnInit(){
       this.getAllOrders()
@@ -42,10 +43,15 @@ export class UserdashboardComponent {
   addToCart(id:string){
    
     this.cartSvc.addItem(id).subscribe(
-      res=>{
+      (res:any)=>{
         console.log(id);
         
         console.log("res fronm service",res);
+        this.flashMsgSvc.pushMessage({
+          type:'success',
+          message:res.message
+        })
+          
         
       }
     )

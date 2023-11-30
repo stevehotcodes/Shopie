@@ -19,11 +19,12 @@ export class UserNavigationComponent implements OnInit {
   }
 
   logOut(){
-    this.authSvc.signOut()
     this.flashMsgSvc.pushMessage({
       type:'info',
-      message:"logging in out "
+      message:"logging  out "
     })
+    this.authSvc.signOut()
+    
   }
 
   getSignedUser(){
