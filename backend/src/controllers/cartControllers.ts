@@ -32,11 +32,14 @@ export const addItem=async (req:ExtendedUser,res:Response)=>{
             await databaseConnection.execute('updateCartItemQuantity',{id:cartItem.id,quantity:cartItem.quantity+1})
             return res.status(200).json({message:"cart item quantity updated"})
         }
+
         else{
+            
             const id=v4();  
             await databaseConnection.execute('addCartItem',{id,userID,productID})
             return res.status(201).json({message:"item added to cart"})
         }
+
 
     }
     catch(error:any){

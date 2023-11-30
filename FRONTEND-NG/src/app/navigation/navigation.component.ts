@@ -16,14 +16,13 @@ export class NavigationComponent {
       console.log(this.logIn)
      }
 
-
      logOut()
       {
         if(this.logIn==true){
           
           this.isLoggedIn=false
           this.authSvc.signOut()
-          this 
+          
           
         }
      }
