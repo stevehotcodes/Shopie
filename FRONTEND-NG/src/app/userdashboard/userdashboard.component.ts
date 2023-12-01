@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IorderDetailsWithUserInfo, OrdersService } from '../services/orders.service';
 import { ProductsService } from '../services/products.service';
 import { CartService } from '../services/cart.service';
+import { FlashmessagesService } from '../services/flashmessages.service';
 
 @Component({
   selector: 'app-userdashboard',
@@ -24,6 +25,9 @@ export class UserdashboardComponent {
     this.getAllOrders();
     this.getAllProducts();
   }
+  orders:IorderDetailsWithUserInfo[]=[]
+  products:any[]=[]
+  constructor(private orderSvc:OrdersService, private productSvc:ProductsService,private cartSvc:CartService,private flashMsgSvc:FlashmessagesService){
 
   openModal(product: any) {
     this.selectedProduct = product;
@@ -48,13 +52,25 @@ export class UserdashboardComponent {
       console.log('all products', res);
       this.products = res;
     });
+=======
+  addToCart(id:string){
+   
+    this.cartSvc.addItem(id).subscribe(
+      (res:any)=>{
+        console.log(id);
+        
+        console.log("res fronm service",res);
+        this.flashMsgSvc.pushMessage({
+          type:'success',
+          message:res.message
+        })
+          
+        
+      }
+    )
+    console.log("item added to  works");
+    
   }
-  addToCart(id: string) {
-    this.cartSvc.addItem(id).subscribe((res) => {
-      console.log(id);
-
-      console.log('res fronm service', res);
-    });
-    console.log('item added to  works');
+  
   }
 }

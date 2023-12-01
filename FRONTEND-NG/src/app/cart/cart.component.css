@@ -1,0 +1,18 @@
+#cart-empty{
+    background:url("../../assets/240_F_167440913_ai5ZyrlREVCvAwYvT04cJ8R2Ctwe6EUW.jpg")  no-repeat ;
+    background-size:contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width:100%;
+    color:red;
+    font-size: 2rem;
+}
+#orderbtn{
+    color: white;
+    background-color: brown;
+    height:3rem;
+    width:3rem;
+
+}

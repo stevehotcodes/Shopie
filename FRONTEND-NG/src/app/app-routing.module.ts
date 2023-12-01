@@ -26,9 +26,8 @@ const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'customers', component: CustomersComponent },
   {path:'cart',component:CartComponent},
-
-  { path: 'orders', component: OrdersComponent},
-
+  {path: 'orders', component: OrdersComponent,canActivate:[UserGuard] },
+  {path:'uorders',component:UserOrdersComponent,canActivate:[UserGuard]},
   { path: 'profile', component: ProfileComponent },
   { path: 'user', component: UserdashboardComponent},
   { path: 'productlists', component: ProductlistComponent },

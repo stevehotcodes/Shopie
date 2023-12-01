@@ -32,11 +32,14 @@ export const addItem=async (req:ExtendedUser,res:Response)=>{
             await databaseConnection.execute('updateCartItemQuantity',{id:cartItem.id,quantity:cartItem.quantity+1})
             return res.status(200).json({message:"cart item quantity updated"})
         }
+
         else{
+            
             const id=v4();  
             await databaseConnection.execute('addCartItem',{id,userID,productID})
             return res.status(201).json({message:"item added to cart"})
         }
+
 
     }
     catch(error:any){
@@ -50,13 +53,19 @@ export const deleteCartItem=async(req:ExtendedUser,res:Response)=>{
         const {itemID}=req.params
         const cart=(await databaseConnection.execute('getCart',{userID})).recordset
         let cartItem:IcartItem=cart.filter((item:IcartItem)=>{
+            console.log("itemID from params",itemID)
+            console.log("item.id",item.id)
+        
+            return item.id==itemID
 
-            return item.id===itemID}
+        }
             )[0]
         console.log(cartItem)
+        // console.log("itemID from params",itemID)
+        // console.log("cartItem.id",cartItem.id)
         
         if(cartItem){
-            await databaseConnection.execute('deleteCartItem',{productID:itemID})
+            await databaseConnection.execute('deleteCartItem',{productID:cartItem.productID})
             console.log("hey I am deleted")
             return res.status(200).json({message:"cart item quantity deleted"})
         }

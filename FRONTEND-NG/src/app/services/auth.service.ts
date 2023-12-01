@@ -37,8 +37,8 @@ export class AuthService {
   signOut(){
     localStorage.removeItem('shopieLoggedUseremail')
     localStorage.removeItem('shopieLoggedUserToken')
-    //  this.route.navigate(['/'])
-    window.location.reload()
+     this.route.navigate(['/'])
+    // window.location.reload()
   }
   getLoggedUser() {
     const email = localStorage.getItem('shopieLoggedUseremail')

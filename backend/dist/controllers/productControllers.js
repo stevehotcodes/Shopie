@@ -19,11 +19,11 @@ const db = new dbhelpers_1.default();
 const createNewProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let id = (0, uuid_1.v4)();
-        let { productName, productDescription, price, productImageUrl, category, productStock } = req.body;
-        if (!productName || !productDescription || !price || !productImageUrl || !category || !productStock) {
+        let { productName, productDescription, price, productImageURL, category, productStock } = req.body;
+        if (!productName || !productDescription || !price || !productImageURL || !category || !productStock) {
             return res.status(400).json({ message: 'missing all or either productName, productDescription, price,productImage,category,productstock' });
         }
-        let result = yield (yield db.execute("createNewProduct", { id, productName, productDescription, price, productImageUrl, category, productStock })).rowsAffected;
+        let result = yield (yield db.execute("createNewProduct", { id, productName, productDescription, price, productImageURL, category, productStock })).rowsAffected;
         console.log(result);
         return res.status(201).json({ message: "product created successfully" });
     }

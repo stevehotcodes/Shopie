@@ -20,4 +20,10 @@ export class CartService {
   removeItem(itemID:string){
     return this.http.delete(`http://localhost:3000/cart/${itemID}`)
   }
+
+  createANewOrder(){
+    return this.http.post(`http://localhost:3000/order/new`,{})
+  }
 }
+
+// orderRouter.post('/new',accountRequired,createAnOrder)
