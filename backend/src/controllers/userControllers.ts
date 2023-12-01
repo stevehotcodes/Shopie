@@ -11,6 +11,7 @@ import { IUserDetails, User } from "../interfaces/userInterface";
 import { ExtendedUser } from "../middlewares/verifyTokens";
 import ejs from "ejs";
 import securePassword from'secure-random-password'
+import dbhelper from '../dbhelpers/dbhelpers'
 
 
 const baseUrl="http://localhost:3000"
@@ -18,7 +19,7 @@ const baseUrl="http://localhost:3000"
 const APPHOST = process.env.APPHOST || 'http://localhost'
 const PORT = process.env.PORT || 3000
 
-const dbhelper = new Connection();
+// const dbhelper = new Connection();
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
@@ -48,6 +49,15 @@ export const registerUser = async (req: Request, res: Response) => {
       password: hashedPwd,
     });
     console.log(result);
+    if((await result).rowsAffected[0] === 0){
+      return res.status(404).json({
+          message: "Something went wrong, employee not registered"
+      })
+  }else{
+      return res.status(201).json({
+          message: "User registered successfully"
+      })
+  }
 
     return res.status(200).json({
       message: "User registered successfully",

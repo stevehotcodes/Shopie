@@ -5,7 +5,7 @@ Content-Type: application/json
 {
     "firstname": "perez",
     "lastname": "Odiyo",
-    "email": "perezodiyo092@gmail.com",
+    "email": "perezodio02@gmail.com",
     "password": "User@123!"
 }
 
@@ -16,7 +16,7 @@ Content-Type: application/json
 {
     "firstname": "Stephen",
     "lastname": "Ondieki",
-    "email": "ondiekistephen00@gmail.com",
+    "email": "ondiekistephen@gmail.com",
     "password": "Admin@123"
 }
 ###
@@ -24,7 +24,7 @@ POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-   "email": "ondiekistephen00@gmail.com",
+   "email": "ondiekistephen@gmail.com",
     "password": "Admin@123"
 }
 ###
@@ -72,7 +72,7 @@ GET http://localhost:3000/products/all
 ###
 GET http://localhost:3000/products/category/coffee
 ###
-GET http://localhost:3000/products/one/17a23f53-0dba-4474-8213-e24ecae1a86b
+GET http://localhost:3000/products/one/1c6e12ad-9da4-45bb-adbf-6baa74ae1329
 ###
 PUT http://localhost:3000/products/17a23f53-0dba-4474-8213-e24ecae1a86b
 Content-Type: application/json

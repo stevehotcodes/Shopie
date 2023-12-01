@@ -9,4 +9,17 @@ productStock INT DEFAULT 1,
 isDeleted INT DEFAULT 0
 )
 
--- SELECT * FROM products
+SELECT * FROM products
+SELECT * FROM users
+SELECT * FROM  users
+
+DELETE FROM users
+DELETE FROM products
+DELETE FROM orders
+DELETE FROM sales
+DELETE FROM
+
+
+UPDATE users
+SET role='admin'
+WHERE firstname='Stephen'

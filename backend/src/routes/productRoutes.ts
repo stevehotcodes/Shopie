@@ -11,7 +11,7 @@ productRouter.post("/new",adminPrivilege,createNewProduct)
 productRouter.get("/all",getProducts)
 productRouter.get("/category/:category",getProducts);
 productRouter.get("/one/:id",getAProduct)
-productRouter.put("/:id",adminPrivilege,updateProduct)
+productRouter.patch("/:id",adminPrivilege,updateProduct)
 productRouter.delete("/:id",adminPrivilege,deleteProduct)
 
 

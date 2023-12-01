@@ -41,3 +41,4 @@ exports.dbConfig = {
         trustCertificate: true,
     },
 };
+//# sourceMappingURL=dbConfig.js.map

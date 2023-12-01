@@ -10,5 +10,5 @@ user_router.get("/all", verifyTokens_1.adminPrivilege, userControllers_1.getAllU
 user_router.get("/one/:id", verifyTokens_1.accountRequired, userControllers_1.getAUserById);
 user_router.get("/logged/", verifyTokens_1.accountRequired, userControllers_1.getSignedInUser);
 user_router.put("/update/:id", userControllers_1.updateUser);
-// user_router.get("/reset",forgotPassword)
 exports.default = user_router;
+//# sourceMappingURL=userRoutes.js.map

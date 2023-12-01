@@ -7,9 +7,7 @@ exports.adminPrivilege = exports.accountRequired = exports.verifyToken = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 dotenv_1.default.config();
-const verifyToken = (req, res, privilege = false
-// next: NextFunction
-) => {
+const verifyToken = (req, res, privilege = false) => {
     try {
         const token = req.headers["token"];
         if (!token) {
@@ -47,3 +45,4 @@ const adminPrivilege = (req, res, next) => {
     next();
 };
 exports.adminPrivilege = adminPrivilege;
+//# sourceMappingURL=verifyTokens.js.map

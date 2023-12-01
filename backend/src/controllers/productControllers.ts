@@ -2,10 +2,10 @@ import {v4} from 'uuid';
 import { Request,Response, response } from 'express';
 import { IProduct } from '../interfaces/productInterface'
 import { IpOptions } from 'joi';
-import Connection from '../dbhelpers/dbhelpers';
+import dbhelper from '../dbhelpers/dbhelpers';
 
 
-const db=new Connection()
+// const db=new Connection()
 
 
 export const createNewProduct=async (req:Request,res:Response)=>{
@@ -17,7 +17,7 @@ export const createNewProduct=async (req:Request,res:Response)=>{
             return res.status(400).json({message: 'missing all or either productName, productDescription, price,productImage,category,productstock'})
         }
 
-        let result=await (await db.execute("createNewProduct",{id,productName,productDescription,price,productImageURL,category,productStock})).rowsAffected
+        let result=await (await dbhelper.execute("createNewProduct",{id,productName,productDescription,price,productImageURL,category,productStock})).rowsAffected
         
         console.log(result)
 
@@ -37,7 +37,7 @@ export const getProducts=async (req:Request,res:Response)=>{
 
          let {category}=req.params
 
-         let products:IProduct[]=category?(await db.execute("getProductsByCategory",{category})).recordset:(await db.execute('getAllProducts')).recordset
+         let products:IProduct[]=category?(await dbhelper.execute("getProductsByCategory",{category})).recordset:(await dbhelper.execute('getAllProducts')).recordset
 
          if(!products.length){
             return res.status(404).json({message: 'No products found'})
@@ -54,7 +54,7 @@ export const getAProduct =async (req:Request,res:Response)=>{
     try{
         let {id}=req.params
 
-         let products:IProduct=(await db.execute("getProductById",{id})).recordset[0]
+         let products:IProduct=(await dbhelper.execute("getProductById",{id})).recordset[0]
 
          if(!products){
             return res.status(404).json({message: 'No product found'})
@@ -70,17 +70,18 @@ export const getAProduct =async (req:Request,res:Response)=>{
 export const updateProduct =async (req:Request,res:Response)=>{
     try{
         let {id}=req.params
-        let {productName,productDescription,price,productImageUrl,category,productStock}=req.body
-        if(!productName||!productDescription ||!price||!productImageUrl ||!category ||!productStock){
-            return res.status(400).json({message: 'missing all or either productName, productDescription, price,productImage,category,productstock'})
-        }
-        let product:IProduct= await (await db.execute('getProductById', {id})).recordset[0]
+        let {productName,productDescription,price,productImageURL,category,productStock}=req.body
+        // if(!productName||!productDescription ||!price||!productImageUrl ||!category ||!productStock){
+        //     return res.status(400).json({message: 'missing all or either productName, productDescription, price,productImage,category,productstock'})
+        // }
+        let product:IProduct= await (await dbhelper.execute('getProductById', {id})).recordset[0]
+        console.log(req.body)
         if(!product){
             return res.status(404).json({message: 'The product does not exist'});
 
          }
 
-        await db.execute('updateProduct',{id,productName,productDescription,price,productImageUrl,category,productStock})
+        await dbhelper.execute('updateProduct',{id,productName,productDescription,price,productImageURL,category,productStock})
         return res.status(200).json({message:"the product's details was updated successfully "})
 
     }
@@ -93,12 +94,12 @@ export const deleteProduct=async (req:Request,res:Response)=>{
     try {
         let {id}=req.params
 
-        let product:IProduct=(await db.execute("getProductById",{id})).recordset[0]
+        let product:IProduct=(await dbhelper.execute("getProductById",{id})).recordset[0]
 
         if(!product){
            return res.status(404).json({message: 'No product found'})
          }
-         await (await db.execute('deleteProduct', {id})).recordset
+         await (await dbhelper.execute('deleteProduct', {id})).recordset
          return res.status(200).json({message:"item deleted successfully"})
        
 

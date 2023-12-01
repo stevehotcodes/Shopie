@@ -15,38 +15,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mssql_1 = __importDefault(require("mssql"));
 const dbConfig_1 = require("../config/dbConfig");
 class Connection {
-    //   getConnection: any;
-    constructor() {
-        this.pool = this.getConnection();
-    }
-    getConnection() {
+    static query(query) {
         return __awaiter(this, void 0, void 0, function* () {
             const pool = mssql_1.default.connect(dbConfig_1.dbConfig);
-            return pool;
-        });
-    }
-    createRequest(request, data) {
-        const keys = Object.keys(data);
-        keys.map((keyName) => {
-            const keyValue = data[keyName];
-            request.input(keyName, keyValue);
-        });
-        return request;
-    }
-    query(query) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const results = (yield this.pool).request().query(query);
+            const results = (yield pool).request().query(query);
             return results;
         });
     }
-    execute(procedureName, data = {}) {
+    static execute(procedureName, data = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            let pool = yield this.pool;
-            let request = (yield pool.request());
-            request = this.createRequest(request, data);
+            const pool = mssql_1.default.connect(dbConfig_1.dbConfig);
+            let request = ((yield pool).request());
+            for (let key in data) {
+                request.input(key, data[key]);
+            }
             const result = yield request.execute(procedureName);
             return result;
         });
     }
 }
 exports.default = Connection;
+//# sourceMappingURL=dbhelpers.js.map
