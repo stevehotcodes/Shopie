@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 //   productDetails,
 // } from '../interfaces/productInterface';
 import { Observable } from 'rxjs';
+import { getAllProductDetails } from '../interfaces/productInterface';
 
 @Injectable({
   providedIn: 'root',
