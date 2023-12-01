@@ -7,39 +7,52 @@ import { FlashmessagesService } from '../services/flashmessages.service';
 @Component({
   selector: 'app-userdashboard',
   templateUrl: './userdashboard.component.html',
-  styleUrls: ['./userdashboard.component.css']
+  styleUrls: ['./userdashboard.component.css'],
 })
 export class UserdashboardComponent {
+  showModal = false;
+  selectedProduct: any;
 
+  orders: IorderDetailsWithUserInfo[] = [];
+  products: any[] = [];
+  constructor(
+    private orderSvc: OrdersService,
+    private productSvc: ProductsService,
+    private cartSvc: CartService
+  ) {}
 
+  ngOnInit() {
+    this.getAllOrders();
+    this.getAllProducts();
+  }
   orders:IorderDetailsWithUserInfo[]=[]
   products:any[]=[]
-  constructor(private orderSvc:OrdersService, private productSvc:ProductsService,private cartSvc:CartService,private flashMsgSvc:FlashmessagesService){}
+  constructor(private orderSvc:OrdersService, private productSvc:ProductsService,private cartSvc:CartService,private flashMsgSvc:FlashmessagesService){
 
-  ngOnInit(){
-      this.getAllOrders()
-      this.getAllProducts()
-  }
-      
-
-  getAllOrders(){
-    this.orderSvc.getOrdersByUser().subscribe(
-      res=>{
-        console.log(res)
-        this.orders=res
-        console.log(this.orders)
-      }
-    )
+  openModal(product: any) {
+    this.selectedProduct = product;
+    this.showModal = true;
   }
 
-  getAllProducts(){
-    this.productSvc.getAllProducts().subscribe(
-      res=>{
-        console.log("all products",res)
-        this.products=res
-      }
-    )
+  closeModal() {
+    this.showModal = false;
+    this.selectedProduct = null;
   }
+
+  getAllOrders() {
+    this.orderSvc.getOrdersByUser().subscribe((res) => {
+      console.log(res);
+      this.orders = res;
+      console.log(this.orders);
+    });
+  }
+
+  getAllProducts() {
+    this.productSvc.getAllProducts().subscribe((res) => {
+      console.log('all products', res);
+      this.products = res;
+    });
+=======
   addToCart(id:string){
    
     this.cartSvc.addItem(id).subscribe(
@@ -58,5 +71,6 @@ export class UserdashboardComponent {
     console.log("item added to  works");
     
   }
-
+  
+  }
 }

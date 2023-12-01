@@ -18,20 +18,18 @@ import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   { path: '', component: LandingpageComponent },
-  { path: 'login', component: LoginComponent,canActivate:[DeactivateGuard]},
-  { path: 'admin', component: AdminlandingComponent ,canActivate:[UserGuard]},
-  { path: 'user', component: UserdashboardComponent ,canActivate:[UserGuard]},
-  { path: 'add', component: NewproductComponent ,canActivate:[UserGuard]},
-  
+  { path: 'login', component: LoginComponent},
+  { path: 'admin', component: AdminlandingComponent },
+  { path: 'user', component: UserdashboardComponent },
+  { path: 'add', component: NewproductComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'customers', component: CustomersComponent },
   {path:'cart',component:CartComponent},
-
   {path: 'orders', component: OrdersComponent,canActivate:[UserGuard] },
   {path:'uorders',component:UserOrdersComponent,canActivate:[UserGuard]},
   { path: 'profile', component: ProfileComponent },
-  { path: 'user', component: UserdashboardComponent ,canActivate:[UserGuard]},
+  { path: 'user', component: UserdashboardComponent},
   { path: 'productlists', component: ProductlistComponent },
 
 ];

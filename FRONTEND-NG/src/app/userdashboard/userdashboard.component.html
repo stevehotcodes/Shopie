@@ -1,43 +1,87 @@
-<div class="flex" style="border:2px solid green">
-    <app-user-navigation></app-user-navigation>
-    <div class="flex flex-col border-gray-300" style="border:2px solid red; flex:1" >
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-10 px-10"
-        style="min-width: 50vw; max-height: 15vh">
-        <div class="bg-white rounded-md shadow-md p-4 font-bold text-[30px] hover:bg-[#95704b] hover:text-white">
-            <!-- <h1>Orders <span></span></h1> -->
-            <a class="cursor-pointer"><img
-                    src="https://img.favpng.com/24/11/5/collaboration-icon-group-icon-men-icon-png-favpng-t099LujeSshZJfXXMZkUS4Z1P.jpg"
-                    alt="" width="30px" /></a>
-            </div>   
-
-        <div class="bg-white rounded-md shadow-md p-4 font-bold text-[30px] hover:bg-[#95704b] hover:text-white">
-            <h1 class="flex">
-                Orders <br />
-                <span>{{orders.length}}</span>
-            </h1>
-            <a routerLink="/uorders" class="cursor-pointer flex-end"><img
-                    src="https://cdn.iconscout.com/icon/premium/png-256-thumb/orders-5-370822.png" alt=""
-                 width="30px" /></a>
+<div class="flex">
+  <app-user-navigation></app-user-navigation>
+  <div>
+    <div></div>
+<div>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+      <div
+        *ngFor="let product of products"
+        class="max-w-[20rem] shadow-lg p-4 mb-4 flex flex-col"
+      >
+        <div><img src="{{ product.productImageURL }}" alt="" /></div>
+        <div class="text-center font-bold">{{ product.productName }}</div>
+        <div>{{ product.productDescription }}</div>
+        <div>{{ product.price }}</div>
+        <div class="flex justify-center items-center mt-auto">
+          <button
+            class="bg-[#433131] text-white px-4 font-bold py-2 rounded transition-colors hover:bg-[#95714b]"
+            (click)="addToCart(product.id)"
+          >
+            Add to cart
+          </button>
         </div>
-     
+      </div>
     </div>
-    <div class="products-wrapper flex" style="border:2px solid blue;flex:1;  flex-wrap:wrap" >
-        <div style="box-shadow:2px 2px 2px solid gray; width:20rem ;height:20rem ;border:2px solid red; margin:20px" *ngFor="let product of products">
-            <div>{{product.productName}}</div>
-            <div>{{product.productDescription}}</div>
-            <div>{{product.price}}</div>
-            <button style="background-color:blue;color: white;" (click)="addToCart(product.id)">Add to cart</button>
 
 
+      <div class="fixed z-10 inset-0 overflow-y-auto" [class.hidden]="!showModal">
+      <div
+        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center"
+      >
+        <!-- Modal overlay -->
+        <div
+          class="fixed inset-0 transition-opacity"
+          (click)="closeModal()"
+          aria-hidden="true"
+        >
+          <div class="absolute inset-0 bg-black opacity-50"></div>
         </div>
-        
-        
-    </div>
 
+        <!-- Modal content -->
+        <div
+          class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle max-w-lg w-full"
+        >
+          <div class="bg-white px-4 pt-5 pb-4">
+            <div class="sm:flex sm:items-start">
+              <button
+                class="absolute top-0 right-0 mt-3 mr-3 text-gray-500 hover:text-gray-700"
+                (click)="closeModal()"
+              >
+                <svg
+                  class="h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+              <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                <h3 class="text-lg font-medium text-gray-900">
+                  {{ selectedProduct?.productName }}
+                </h3>
+                <p class="text-sm text-gray-500">
+                  {{ selectedProduct?.productDescription }}
+                </p>
+                <p class="text-sm text-gray-500">
+                  {{ selectedProduct?.price }}
+                </p>
+                <!-- Other details can be displayed here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
-   
+</div>
 
-   
-    
+
+
+  </div>
 </div>
